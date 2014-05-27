@@ -11,7 +11,7 @@
     <script>
       var domain = 'www.chatwork.com';
       var service_title = 'ChatWork';
-      var version = '0.1b';
+      var version = '0.11b';
       
       //---- Settings here -----------------------------------------------
       
