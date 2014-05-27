@@ -36,7 +36,9 @@
             refreshData();
           }
           
-          $('#version').text(version);
+          $('#version').text(version).click(function(){
+            alert('Copyright(c) ChatWork Inc All Rights Reserved.');
+          });
           
           $('#settings').click(function(){
             $('#token_setting').show();
