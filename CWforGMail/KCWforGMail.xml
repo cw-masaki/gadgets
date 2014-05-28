@@ -4,13 +4,22 @@
     <Require feature="settitle"/>
     <Require feature="setprefs"/>
     <Require feature="dynamic-height"/>
+    <Locale messages="https://raw.githubusercontent.com/cw-masaki/gadgets/master/CWforGMail/lang/ALL_ALL.xml"/> 
+    <Locale lang="ja" messages="https://raw.githubusercontent.com/cw-masaki/gadgets/master/CWforGMail/lang/ja_ALL.xml"/> 
   </ModulePrefs>
   <Content type="html" view="default"><![CDATA[
     <!DOCTYPE html>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
-      var domain = 'kcw.kddi.ne.jp';
+      var prefs = new gadgets.Prefs();
+      var version = '0.12b';
+      
+      //---- Provider specific settings ----------------------------------
+      
+      var service_domain = 'kcw.kddi.ne.jp';
       var service_title = 'KDDI ChatWork';
+      var company_name = 'KDDI';
+      var company_url = prefs.getMsg('kddi_company_url');
       
       //---- Settings here -----------------------------------------------
       
@@ -19,7 +28,6 @@
       //---- Core code ---------------------------------------------------
       jQuery.noConflict();
       (function($){
-        var prefs = new gadgets.Prefs();
         var apikey = prefs.getString('token');
         var first_success = false; //API通信に成功したか
         
@@ -34,6 +42,9 @@
             gadgets.window.adjustHeight();
             refreshData();
           }
+          
+          $('#version').text(version);
+          $('#copyright').html('<a href="' + company_url + '" target="_blank">' + company_name + '</a>');
           
           $('#settings').click(function(){
             $('#token_setting').show();
@@ -79,6 +90,7 @@
           },1000);
         });
         
+        //チャット一覧を更新
         function updateRoomList(){
           var params = {};
           params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
@@ -104,7 +116,7 @@
                 list += '<li>'
                    + unread_stat
                    + '<img src="' + room.icon_path + '" class="roomIcon" />'
-                   + '<a href="https://' + domain + '/#!rid' + room.room_id + '" target="_blank">'
+                   + '<a href="https://' + service_domain + '/#!rid' + room.room_id + '" target="_blank">'
                    + escapeHTML(room.name) + '</a></li>';
               }
             }
@@ -116,10 +128,12 @@
             $('#roomlist').html(list);
             gadgets.window.adjustHeight();
           },function(response){
+            //エラー時は非表示に
             $('#roomlist').empty();
           },params,0);
         }
         
+        //未読数を更新
         function updateStatus(){
           var params = {};
           params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.JSON;
@@ -145,11 +159,13 @@
           },params,0);
         }
         
+        //未読数、チャット一覧を更新
         function refreshData(){
           updateRoomList();
           updateStatus();
         }
         
+        //APIリクエスト
         var error_timer = null;
         function apiRequest(url, callback, error_callback, params, refreshInterval){
           if (apikey.length !== 0){
@@ -173,6 +189,7 @@
           }
         }
         
+        //キャッシュ制御機能付きリクエスト
         function makeCachedRequest(url, callback, params, refreshInterval) {
           var ts = new Date().getTime();
           var sep = "?";
@@ -190,7 +207,6 @@
           return $('<div />').text(val).html();
         }
       })(jQuery);
-      
     </script>
     <style type="text/css">
     .container {
@@ -268,22 +284,62 @@
       text-align: right;
       font-size: 10px;
     }
+    
     .settingLink {
       cursor: pointer;
       padding: 2px;
+    }
+    
+    .footerArea {
+      text-align: right;
+      font-size: 10px;
+      margin-top: 5px;
+    }
+    
+    .copyright {
+      float: left;
+      width: 70px;
+      text-align: left;
+      padding: 0px 0px 0px 3px;
+    }
+    
+    .version {
+      float: right;
+      width: 50px;
+      padding: 0px 3px 0px 0px;
+    }
+    
+    /* For modern browsers */
+    .cf:before,
+    .cf:after {
+        content:"";
+        display:block;
+        overflow:hidden;
+    }
+     
+    .cf:after {
+        clear:both;
+    }
+     
+    /* For IE 6/7 (trigger hasLayout) */
+    .cf {
+        zoom:1;
     }
     </style>
     <div class="container">
      <fieldset id="token_setting" style="display:none">
       <legend>API Token <a href="http://developer.chatwork.com/ja/" target="_blank">(?)</a></legend>
       <input type="text" id="token" class="tokenInput" />
-      <input type="button" id="submit_setting" value="保存" />
-      <input type="button" id="cancel_setting" value="キャンセル" />
+      <input type="button" id="submit_setting" value="__MSG_save__" />
+      <input type="button" id="cancel_setting" value="__MSG_cancel__" />
      </fieldset>
      <div id="error" class="errorMessage" style="display:none"></div>
      <div id="content">
-      <div class="settingArea"><a id="settings" class="settingLink">設定</a></div>
+      <div class="settingArea"><a id="settings" class="settingLink">__MSG_settings__</a></div>
       <ul id="roomlist"></ul>
+      <div class="footerArea cf">
+        <div class="copyright">&copy; <span id="copyright"></span></div>
+        <div class="version">v<span id="version"></span></div></div>
      </div>
     </div>
   ]]></Content>
