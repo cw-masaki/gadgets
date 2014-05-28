@@ -4,7 +4,8 @@
     <Require feature="settitle"/>
     <Require feature="setprefs"/>
     <Require feature="dynamic-height"/>
-    <Locale messages="//xxx.com/ALL_ALL.xml"/> 
+    <Locale messages="https://raw.githubusercontent.com/cw-masaki/gadgets/master/CWforGMail/lang/ALL_ALL.xml"/> 
+    <Locale lang="ja" messages="https://raw.githubusercontent.com/cw-masaki/gadgets/master/CWforGMail/lang/ja_ALL.xml"/> 
   </ModulePrefs>
   <Content type="html" view="default"><![CDATA[
     <!DOCTYPE html>
