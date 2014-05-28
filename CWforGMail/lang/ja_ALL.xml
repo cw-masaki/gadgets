@@ -2,4 +2,6 @@
   <msg name="save">保存</msg> 
   <msg name="cancel">キャンセル</msg> 
   <msg name="settings">設定</msg> 
+  <msg name="chatwork_company_url">http://www.chatwork.com/ja/</msg>
+  <msg name="kddi_company_url">http://www.kddi.com</msg>
 </messagebundle>

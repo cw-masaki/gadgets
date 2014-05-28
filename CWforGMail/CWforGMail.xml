@@ -11,11 +11,15 @@
     <!DOCTYPE html>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
+      var prefs = new gadgets.Prefs();
+      var version = '0.12b';
+      
+      //---- Provider specific settings ----------------------------------
+      
       var service_domain = 'www.chatwork.com';
       var service_title = 'ChatWork';
       var company_name = 'ChatWork';
-      var company_url = 'http://www.chatwork.com/ja/';
-      var version = '0.12b';
+      var company_url = prefs.getMsg('chatwork_company_url');
       
       //---- Settings here -----------------------------------------------
       
@@ -24,7 +28,6 @@
       //---- Core code ---------------------------------------------------
       jQuery.noConflict();
       (function($){
-        var prefs = new gadgets.Prefs();
         var apikey = prefs.getString('token');
         var first_success = false; //API通信に成功したか
         
@@ -327,12 +330,12 @@
      <fieldset id="token_setting" style="display:none">
       <legend>API Token <a href="http://developer.chatwork.com/ja/" target="_blank">(?)</a></legend>
       <input type="text" id="token" class="tokenInput" />
-      <input type="button" id="submit_setting" value="__MSG_save" />
-      <input type="button" id="cancel_setting" value="__MSG_cancel" />
+      <input type="button" id="submit_setting" value="__MSG_save__" />
+      <input type="button" id="cancel_setting" value="__MSG_cancel__" />
      </fieldset>
      <div id="error" class="errorMessage" style="display:none"></div>
      <div id="content">
-      <div class="settingArea"><a id="settings" class="settingLink">__MSG_settings</a></div>
+      <div class="settingArea"><a id="settings" class="settingLink">__MSG_settings__</a></div>
       <ul id="roomlist"></ul>
       <div class="footerArea cf">
         <div class="copyright">&copy; <span id="copyright"></span></div>
