@@ -4,4 +4,5 @@
   <msg name="settings">Settings</msg> 
   <msg name="chatwork_company_url">http://www.chatwork.com</msg>
   <msg name="kddi_company_url">http://www.kddi.com/english/index.html</msg>
+  <msg name="no_unread_messages">No unread messages</msg>
 </messagebundle>

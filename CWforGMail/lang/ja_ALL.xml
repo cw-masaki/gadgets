@@ -4,4 +4,5 @@
   <msg name="settings">設定</msg> 
   <msg name="chatwork_company_url">http://www.chatwork.com/ja/</msg>
   <msg name="kddi_company_url">http://www.kddi.com</msg>
+  <msg name="no_unread_messages">未読のチャットはありません</msg>
 </messagebundle>

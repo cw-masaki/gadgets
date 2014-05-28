@@ -12,7 +12,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
       var prefs = new gadgets.Prefs();
-      var version = '0.13b';
+      var version = '0.14b';
       
       //---- Provider specific settings ----------------------------------
       
@@ -122,7 +122,7 @@
             }
             
             if (list === ''){
-              list = '<li>未読のチャットはありません</li>';
+              list = '<li>' + prefs.getMsg('no_unread_messages') + '</li>';
             }
             
             $('#roomlist').html(list);
